@@ -1,5 +1,4 @@
-import requests
-import re 
+import requests 
 from bs4 import BeautifulSoup
 
 def get_html(url):
@@ -12,6 +11,12 @@ html_document = get_html(url_to_scrape)
 soup = BeautifulSoup(html_document, 'html.parser') #htmllib5
 #print(soup)
 
-for a in soup.find_all('meta', limit=10):
+
+list = []
+
+for a in soup.find_all('meta'):
+    
     print(a)
+
+
 
