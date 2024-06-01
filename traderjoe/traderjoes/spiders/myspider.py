@@ -12,12 +12,10 @@ class Joe(scrapy.Spider):
             yield SplashRequest(url, self.parse, args={'wait': 2})
 
     def parse(self, response):
-        for product in response.xpath('//div[@class="product-category"]/div[@class="product-name"]'):
+        for title in response.xpath('/html/body/div/div[1]/div[1]/div/div[1]/div/div[2]/main/div/div/div[1]/div[1]/div/div/div[1]/section/h2'):
             yield {
-                'heading':product.xpath('text()').get().strip()
+                'heading': title.extract()
             }
-        print(product)
-        
 
 if __name__ == "__myspider__":
      object = Joe
