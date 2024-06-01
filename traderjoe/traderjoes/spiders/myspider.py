@@ -1,21 +1,24 @@
 from typing import Iterable
 import scrapy
-from scrapy_splash import SplashRequest
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 
 class Joe(scrapy.Spider):
     name = 'Joe'
     allowed_domains = ['traderjoes.com']
-    start_urls = ['https://www.traderjoes.com/home']
+    start_urls = ['https://www.traderjoes.com/home/products/category/food-8']
 
-    def start_requests(self):
-        for url in self.start_urls:
-            yield SplashRequest(url, self.parse, args={'wait': 2})
-
-    def parse(self, response):
-        for title in response.xpath('/html/body/div/div[1]/div[1]/div/div[1]/div/div[2]/main/div/div/div[1]/div[1]/div/div/div[1]/section/h2'):
-            yield {
-                'heading': title.extract()
-            }
+    rules = (
+        Rule(LinkExtractor(allow=(r"?filters=",))), Rule(LinkExtractor(allow=(r"/pdp",)), callback="parse_item"),
+    )
+    
+    def parse_item(self, response):
+        yield {
+            #"title": response.css()
+            #"price": response.css()
+            #"calories": response.css()
+            #"protein": response.css()
+        }
 
 if __name__ == "__myspider__":
      object = Joe
