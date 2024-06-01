@@ -1,0 +1,10 @@
+data #webscraping, cleaning, data collection
+    |--location.py
+    |--scrape.py
+    |--data.py
+
+frontend #user side, web app design 
+    |-- (React.js components folders)
+
+api #fastAPI communicates between back/frontend
+    |--(fastapi routes.py)
