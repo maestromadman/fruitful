@@ -8,3 +8,21 @@ frontend #user side, web app design
 
 api #fastAPI communicates between back/frontend
     |--(fastapi routes.py)
+
+
+(1) SCRAPE DATA - dict, list, etc. 
+    - scrapy
+    - beautiful soup
+    - right___
+
+(2) CREATE LIST OF GROCERY ITEMS FROM TRADER JOE'S WEBSITE
+    - {item 1: {calories:100} {protein: 10g}}
+    - key = name, value = list of specifics
+    - .csv --> numpy
+    - ***STATIC DATASET*** (for now)
+
+(3) CATEGORIZE DATA BY FOOD GROUPS
+    - OR PRICE
+    - OR CALORIES
+
+
