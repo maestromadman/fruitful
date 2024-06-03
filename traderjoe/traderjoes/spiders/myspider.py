@@ -1,22 +1,23 @@
 from typing import Iterable
 import scrapy
-from scrapy.spiders import CrawlSpider, Rule
-from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider
+#from scrapy.linkextractors import LinkExtractor
+from scrapy_splash import SplashRequest
 
-class Joe(scrapy.Spider):
-    name = 'Joe'
+class Joe(CrawlSpider):
+    name = 'joe'
     start_urls = ['https://www.traderjoes.com/home/products/pdp/fresh-mozzarella-cheese-snackers-070925']
 
     def start_requests(self):
         start_urls = ['https://www.traderjoes.com/home/products/pdp/fresh-mozzarella-cheese-snackers-070925']
         for url in start_urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+            yield SplashRequest(url, self.parse, args={'wait': 2})
 
 
     def parse(self, response):
         yield {
-            "title": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[1]/div[1]/div/div[2]/h1').get(),
-            "price": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[1]/div[1]/div/div[2]/div[1]').get(),
-            "calories": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[2]/div[1]/div/div[3]/div[1]/div[1]/div[2]/div/div/div[2]/div[2]').get(),
-            "protein": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[2]/div[1]/div/div[3]/div[1]/div[1]/div[2]/div/table/tbody/tr[10]/td[2]').get()
+            "title": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[1]/div[1]/div/div[2]/h1/text()').get(),
+            "price": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[1]/div[1]/div/div[2]/div[1]/text()').get(),
+            "calories": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[2]/div[1]/div/div[3]/div[1]/div[1]/div[2]/div/div/div[2]/div[2]/text()').get(),
+            "protein": response.xpath('//*[@id="spa-root"]/div[8]/div[1]/div/div[1]/div/div[2]/main/div/div/div[2]/div[1]/div/div[3]/div[1]/div[1]/div[2]/div/table/tbody/tr[10]/td[2]/text()').get()
         }
