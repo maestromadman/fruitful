@@ -7,6 +7,8 @@ import scrapy
 
 
 class TraderjoeItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    price = scrapy.Field()
+    calories = scrapy.Field()
+    protein = scrapy.Field()
+    last_updated = scrapy.Field(serializer=str)
